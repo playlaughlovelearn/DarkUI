@@ -13,7 +13,7 @@ namespace DarkUI.Controls
 
         //[Category("Appearance")]
         //[Description("Determines the color of the border.")]
-        protected Color BorderColor
+        public  Color BorderColor
         {
             get { return _borderColor; }
             set
