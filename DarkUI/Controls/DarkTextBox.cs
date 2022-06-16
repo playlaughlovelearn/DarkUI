@@ -9,12 +9,21 @@ namespace DarkUI.Controls
 
         public DarkTextBox()
         {
-            BackColor = Colors.LightBackground;
-            ForeColor = Colors.LightText;
+            BackColor = ThemeProvider.Theme.Colors.LightBackground;
+            ForeColor = ThemeProvider.Theme.Colors.LightText;
             Padding = new Padding(2, 2, 2, 2);
             BorderStyle = BorderStyle.FixedSingle;
         }
 
+        //protected override void OnInvalidated(InvalidateEventArgs e)
+        //{
+        //    BackColor = ThemeProvider.Theme.Colors.LightBackground;
+        //    ForeColor = ThemeProvider.Theme.Colors.LightText;
+        //    Padding = new Padding(2, 2, 2, 2);
+        //    BorderStyle = BorderStyle.FixedSingle;
+
+        //    base.OnInvalidated(e);
+        //}
         #endregion
     }
 }

@@ -8,11 +8,12 @@ namespace DarkUI.Controls
 {
     public class DarkGroupBox : GroupBox
     {
-        private Color _borderColor = Colors.DarkBorder;
+        //private Color _borderColor = ThemeProvider.Theme.Colors.DarkBorder;
+        private Color _borderColor = ThemeProvider.Theme.Colors.LightText;
 
-        [Category("Appearance")]
-        [Description("Determines the color of the border.")]
-        public Color BorderColor
+        //[Category("Appearance")]
+        //[Description("Determines the color of the border.")]
+        protected Color BorderColor
         {
             get { return _borderColor; }
             set
@@ -38,8 +39,8 @@ namespace DarkUI.Controls
             var rect = new Rectangle(0, 0, ClientSize.Width, ClientSize.Height);
             var stringSize = g.MeasureString(Text, Font);
 
-            var textColor = Colors.LightText;
-            var fillColor = Colors.GreyBackground;
+            var textColor = ThemeProvider.Theme.Colors.LightText;
+            var fillColor = ThemeProvider.Theme.Colors.GreyBackground;
 
             using (var b = new SolidBrush(fillColor))
             {
@@ -52,9 +53,9 @@ namespace DarkUI.Controls
                 g.DrawRectangle(p, borderRect);
             }
 
-            var textRect = new Rectangle(rect.Left + Consts.Padding,
+            var textRect = new Rectangle(rect.Left + ThemeProvider.Theme.Sizes.Padding,
                     rect.Top,
-                    rect.Width - (Consts.Padding * 2),
+                    rect.Width - (ThemeProvider.Theme.Sizes.Padding * 2),
                     (int)stringSize.Height);
 
             using (var b2 = new SolidBrush(fillColor))

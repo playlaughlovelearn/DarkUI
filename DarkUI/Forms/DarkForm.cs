@@ -28,13 +28,36 @@ namespace DarkUI.Forms
             }
         }
 
+        public enum Themes { DarkTheme, LightTheme };
+        private Themes m_Theme = Themes.DarkTheme;
+
+        public Themes Theme
+        {
+            get { return m_Theme; }
+            set {
+                m_Theme = value;
+                if (m_Theme == Themes.DarkTheme)
+                    ThemeProvider.Theme = new DarkTheme();
+                else
+                    ThemeProvider.Theme = new LightTheme();
+            }
+        }
+
         #endregion
 
         #region Constructor Region
 
         public DarkForm()
         {
-            BackColor = Colors.GreyBackground;
+            ThemeProvider.ThemeChanged += ThemeProvider_ThemeChanged;
+            BackColor = ThemeProvider.Theme.Colors.GreyBackground;
+        }
+
+        private void ThemeProvider_ThemeChanged()
+        {
+            BackColor = ThemeProvider.Theme.Colors.GreyBackground;
+            Invalidate();
+            System.Console.WriteLine("Theme Changed: " + Theme.ToString());
         }
 
         #endregion
@@ -50,7 +73,7 @@ namespace DarkUI.Forms
 
             var g = e.Graphics;
 
-            using (var p = new Pen(Colors.DarkBorder))
+            using (var p = new Pen(ThemeProvider.Theme.Colors.DarkBorder))
             {
                 var modRect = new Rectangle(ClientRectangle.Location, new Size(ClientRectangle.Width - 1, ClientRectangle.Height - 1));
                 g.DrawRectangle(p, modRect);

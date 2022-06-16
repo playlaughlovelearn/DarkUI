@@ -280,39 +280,39 @@ namespace DarkUI.Controls
             var g = e.Graphics;
             var rect = new Rectangle(0, 0, ClientSize.Width, ClientSize.Height);
 
-            var size = Consts.CheckBoxSize;
+            var size = ThemeProvider.Theme.Sizes.CheckBoxSize;
 
-            var textColor = Colors.LightText;
-            var borderColor = Colors.LightText;
-            var fillColor = Colors.LightestBackground;
+            var textColor = ThemeProvider.Theme.Colors.LightText;
+            var borderColor = ThemeProvider.Theme.Colors.LightText;
+            var fillColor = Checked ? ThemeProvider.Theme.Colors.DarkBackground : ThemeProvider.Theme.Colors.LightestBackground;
 
             if (Enabled)
             {
                 if (Focused)
                 {
-                    borderColor = Colors.BlueHighlight;
-                    fillColor = Colors.BlueSelection;
+                    borderColor = ThemeProvider.Theme.Colors.BlueHighlight;
+                    fillColor = ThemeProvider.Theme.Colors.BlueSelection;
                 }
 
                 if (_controlState == DarkControlState.Hover)
                 {
-                    borderColor = Colors.BlueHighlight;
-                    fillColor = Colors.BlueSelection;
+                    borderColor = ThemeProvider.Theme.Colors.BlueHighlight;
+                    fillColor = ThemeProvider.Theme.Colors.BlueSelection;
                 }
                 else if (_controlState == DarkControlState.Pressed)
                 {
-                    borderColor = Colors.GreyHighlight;
-                    fillColor = Colors.GreySelection;
+                    borderColor = ThemeProvider.Theme.Colors.GreyHighlight;
+                    fillColor = ThemeProvider.Theme.Colors.GreySelection;
                 }
             }
             else
             {
-                textColor = Colors.DisabledText;
-                borderColor = Colors.GreyHighlight;
-                fillColor = Colors.GreySelection;
+                textColor = ThemeProvider.Theme.Colors.DisabledText;
+                borderColor = ThemeProvider.Theme.Colors.GreyHighlight;
+                fillColor = ThemeProvider.Theme.Colors.GreySelection;
             }
 
-            using (var b = new SolidBrush(Colors.GreyBackground))
+            using (var b = new SolidBrush(ThemeProvider.Theme.Colors.GreyBackground))
             {
                 g.FillRectangle(b, rect);
             }
@@ -329,6 +329,17 @@ namespace DarkUI.Controls
                 {
                     Rectangle boxRect = new Rectangle(2, (rect.Height / 2) - ((size - 4) / 2), size - 3, size - 3);
                     g.FillRectangle(b, boxRect);
+                }
+
+                using (var p = new Pen(textColor, 1.7f))
+                {
+                    int left = 2;
+                    int top = (rect.Height / 2) - ((size - 4) / 2);
+                    int right = size - 2;
+                    int bottom = size - 1;
+
+                    g.DrawLine(p, left, top, right, bottom);
+                    g.DrawLine(p, right, top, left, bottom);
                 }
             }
 
