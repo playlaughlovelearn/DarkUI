@@ -1,0 +1,114 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFrameworks>net48;netcoreapp3.1</TargetFrameworks>
+		
+		<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+		<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+		<RootNamespace>$(MSBuildProjectName.Replace("-Starlit", ""))</RootNamespace>
+		<Version>$(VersionPrefix)</Version>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Description>Dark themed control and docking library for .NET WinForms</Description>
+		<PackageIcon>icon-64.png</PackageIcon>
+		<VersionPrefix>2.2.0</VersionPrefix>
+		<AssemblyVersion>2.2.0.0</AssemblyVersion>
+		<FileVersion>2.2.0.0</FileVersion>
+		<Configurations>Debug;Release</Configurations> 
+		<Platforms>AnyCPU</Platforms>
+		<LangVersion>7.3</LangVersion>
+		<Nullable>Disable</Nullable>
+	</PropertyGroup>
+
+	<PropertyGroup Label="Globals">
+		<SccProjectName>SAK</SccProjectName>
+		<SccProvider>SAK</SccProvider>
+		<SccAuxPath>SAK</SccAuxPath>
+		<SccLocalPath>SAK</SccLocalPath>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<UseWPF>false</UseWPF>
+		<UseWindowsForms>true</UseWindowsForms>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Debug'">
+		<DefineConstants>$(DefineConstants)DEBUG</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)'=='Release'">
+		<DefineConstants>$(DefineConstants)TRACE</DefineConstants>
+	</PropertyGroup>
+	
+	<PropertyGroup Condition="'$(TargetFramework)'=='net48'">
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(TargetFramework)'=='netcoreapp3.1'">
+	</PropertyGroup>
+
+	<!--
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release60|AnyCPU' ">
+		<TargetFrameworks>net6.0</TargetFrameworks>
+		<LangVersion>10.0</LangVersion>
+		<Nullable>Enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug60|AnyCPU' ">
+		<TargetFrameworks>net6.0</TargetFrameworks>
+		<LangVersion>10.0</LangVersion>
+		<Nullable>Enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+	-->
+
+	<!--
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release48|AnyCPU' ">
+		<TargetFramework>net48</TargetFramework>
+		<LangVersion>7.3</LangVersion>
+		<Nullable>Disable</Nullable>
+	</PropertyGroup>
+
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug48|AnyCPU' ">
+		<TargetFramework>net48</TargetFramework>
+		<LangVersion>7.3</LangVersion>
+		<Nullable>Disable</Nullable>
+	</PropertyGroup>
+	-->
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="if $(ConfigurationName) == Release signtool sign /f &quot;$(FSS_SIGN_KEY)&quot; /p $(FSS_SIGN_PASSWORD)  /tr http://timestamp.digicert.com /td SHA256 /fd SHA256 &quot;$(TargetPath)&quot;" />
+	</Target>
+
+	<ItemGroup>
+		<None Include="..\icon-64.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="System.Resources.Extensions" Version="6.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Reference Include="System.Windows.Forms" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+
+
+</Project>

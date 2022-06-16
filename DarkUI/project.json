@@ -1,0 +1,35 @@
+{
+    "dependencies":
+    {
+    },
+    "frameworks":
+    {
+        "net6.0":
+        {
+            "frameworkReferences":
+            {
+                "System.Resources.Extensions":
+                {
+                },
+                "System.Windows.Forms":
+                {
+                }
+            },
+            "imports":
+            [
+                "net461",
+                "net462",
+                "net47",
+                "net471",
+                "net472",
+                "net48"
+            ]
+        }
+    },
+    "runtimes":
+    {
+        "win":
+        {
+        }
+    }
+}
